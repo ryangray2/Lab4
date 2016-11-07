@@ -16,10 +16,10 @@
 using namespace std;
 
 Game::Game() {
-	int numletters = 0;
-	int totalwords = 0;
-	int numright = 0;
-	int totalscore = 0;
+	numletters = 0;
+	totalwords = 0;
+	numright = 0;
+	totalscore = 0;
 }
 
 void Game::startGame() {
@@ -29,6 +29,9 @@ void Game::startGame() {
 		cout << "How many letters would you like?" << endl;
 		cin >> numletters;
 		currletters = getLetters();
+		for (int i = 0; i < numletters; i++) {
+			cout << currletters[i] << " ";
+		}
 		getWords();
 		checkWordsForScore();
 		cout << "Score: " << totalscore;
@@ -59,21 +62,21 @@ char * Game::getLetters() {
 	srand(time(NULL));
 	int numvowels = (rand() % numletters) + 1;
 	int numconsonants = numletters - numvowels;
-	char vowels[] = "aeiou";
-	char consonants[] = "bcdfghjklmnpqrstvwxyz";
-	char letters[numletters];
+	char v[] = {'a','e','i','o','u'};
+	char c[] = {'b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z'};
+//	char letters[numletters];
 	int x = numletters;
-	while (numvowels > 0) {
-		letters[x] = vowels[rand() % 5];
+	while (numvowels >= 0) {
+		currletters[x] = v[rand() % 5];
 		x--;
 		numvowels--;
 	}
 	while (numconsonants > 0) {
-		letters[x] = consonants[rand() % 21];
+		currletters[x] = c[rand() % 21];
 		x--;
 		numconsonants--;
 	}
-	return letters;
+	return currletters;
 }
 
 bool Game::checkWLetters(string s) {
@@ -96,16 +99,26 @@ bool Game::checkWLetters(string s) {
 
 
 void Game::getWords() {
-	string s;
-	while (s != "*") {
-		cout << "Enter word: " << endl;
+	cout << "oh god";
+	while (1) {
+		cout << endl << "Enter word: " << endl;
+		string s = " ";
 		cin >> s;
-		if (checkWLetters(s) == false) {
+		cout << "wtf";
+		if (s.compare("*") == 0) {
+			cout << "damn";
+			break;
+		}
+		else if (checkWLetters(s) == false) {
+			cout << "1";
 			cout << "Invalid word" << endl;
+			continue;
 		}
 		else {
+			cout << "2";
 			wordlist->insert(s, wordlist->root);
 			totalwords++;
+			continue;
 		}
 	}
 	cout << "Done." << endl;

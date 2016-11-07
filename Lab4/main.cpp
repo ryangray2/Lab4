@@ -14,8 +14,9 @@
 using namespace std;
 
 int main() {
-   Game("testdict.txt");
-
+	Game * x = new Game();
+	x->readTreeFromFile("testdict.txt");
+	x->startGame();
 }
 
 
